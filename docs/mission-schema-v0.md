@@ -1,6 +1,6 @@
 # Mission Schema v0
 
-Status: Draft for dogfooding
+Status: Historical design draft. Superseded for new implementation by [Mission schema v0.2](mission-schema-v0.2.md) and [the blueprint](BLUEPRINT.md). Examples below are illustrative, not real user records.
 
 This document defines the information Mission Board must preserve about a Mission before the application architecture is chosen. It is a product model, not yet a database schema or API contract.
 
@@ -122,7 +122,7 @@ A Mission can relate to several contexts without being trapped in a rigid folder
 ```yaml
 workspace: Homelab
 projects:
-  - Precision 3630
+  - Example workstation
 systems:
   - workstation
 tags:

@@ -1,0 +1,289 @@
+{
+  "format_version": "0.2",
+  "workspace_id": "ws_example",
+  "revision": 0,
+  "name": "Example Workshop",
+  "inbox_category_id": "cat_inbox",
+  "instructions": "Use only fictional example data. Teach one action at a time.",
+  "preferences": {
+    "conversation": "standard",
+    "explanation": "standard",
+    "progress": "concise",
+    "step_size": "one_action",
+    "notes_depth": "standard",
+    "notes_placement": "auto"
+  },
+  "categories": [
+    {
+      "id": "cat_inbox",
+      "parent_id": null,
+      "name": "Inbox",
+      "instructions": "",
+      "preferences": {},
+      "archived": false
+    },
+    {
+      "id": "cat_computing",
+      "parent_id": null,
+      "name": "Computing",
+      "instructions": "",
+      "preferences": {
+        "explanation": "detailed"
+      },
+      "archived": false
+    },
+    {
+      "id": "cat_storage",
+      "parent_id": "cat_computing",
+      "name": "Storage",
+      "instructions": "",
+      "preferences": {},
+      "archived": false
+    },
+    {
+      "id": "cat_backups",
+      "parent_id": "cat_storage",
+      "name": "Backups",
+      "instructions": "",
+      "preferences": {
+        "notes_depth": "deep"
+      },
+      "archived": false
+    },
+    {
+      "id": "cat_garden",
+      "parent_id": null,
+      "name": "Garden",
+      "instructions": "",
+      "preferences": {},
+      "archived": false
+    }
+  ],
+  "missions": [
+    {
+      "id": "mis_restore",
+      "category_id": "cat_backups",
+      "title": "Restore a sample file",
+      "status": "ready",
+      "kind": "mission",
+      "purpose": "Demonstrate a recovery workflow using disposable example data.",
+      "current_state": "A sample backup is available in this fictional exercise.",
+      "next_action": "Choose an empty temporary destination for the restore exercise.",
+      "resume": {
+        "last_result": "",
+        "known_working": "",
+        "failed_attempts": [],
+        "decisions": []
+      },
+      "completion_criteria": [
+        "Restored sample contents match the original."
+      ],
+      "blockers": [],
+      "notes_markdown": "- Use disposable sample data.\n- Preserve the original.",
+      "document_ids": [
+        "doc_restore"
+      ],
+      "resources": [],
+      "related_mission_ids": [],
+      "dependency_ids": [],
+      "tags": [],
+      "instructions": "",
+      "preferences": {
+        "conversation": "concise",
+        "step_size": "one_action"
+      },
+      "availability": {
+        "energy": "medium",
+        "estimated_minutes": 20,
+        "purchase": "not_required"
+      },
+      "evidence": [
+        {
+          "claim": "A sample backup is available in the fictional exercise.",
+          "provenance": {
+            "source_type": "user_reported",
+            "source_ref": "Fictional fixture only",
+            "observed_at": null,
+            "freshness": "unknown"
+          }
+        }
+      ],
+      "question": null,
+      "stopping_condition": null,
+      "completion": null,
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z",
+      "last_activity_at": null,
+      "archived": false
+    },
+    {
+      "id": "mis_seed",
+      "category_id": "cat_garden",
+      "title": "Compare seed-starting methods",
+      "status": "experiment",
+      "kind": "experiment",
+      "purpose": "",
+      "current_state": "",
+      "next_action": "Choose the two methods and observation window.",
+      "resume": {
+        "last_result": "",
+        "known_working": "",
+        "failed_attempts": [],
+        "decisions": []
+      },
+      "completion_criteria": [],
+      "blockers": [],
+      "notes_markdown": "",
+      "document_ids": [],
+      "resources": [],
+      "related_mission_ids": [],
+      "dependency_ids": [],
+      "tags": [],
+      "instructions": "",
+      "preferences": {},
+      "availability": {},
+      "evidence": [],
+      "question": "Which of two methods produces more sprouts in this sample exercise?",
+      "stopping_condition": "Stop after the agreed observation period and record counts.",
+      "completion": null,
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z",
+      "last_activity_at": null,
+      "archived": false
+    },
+    {
+      "id": "mis_shelf",
+      "category_id": "cat_garden",
+      "title": "Assemble a plant shelf",
+      "status": "waiting",
+      "kind": "mission",
+      "purpose": "",
+      "current_state": "A bracket is missing in this fictional scenario.",
+      "next_action": "",
+      "resume": {
+        "last_result": "",
+        "known_working": "",
+        "failed_attempts": [],
+        "decisions": []
+      },
+      "completion_criteria": [],
+      "blockers": [
+        {
+          "reason": "Obtain a bracket",
+          "kind": "hardware",
+          "resolved": false
+        }
+      ],
+      "notes_markdown": "",
+      "document_ids": [],
+      "resources": [],
+      "related_mission_ids": [],
+      "dependency_ids": [],
+      "tags": [],
+      "instructions": "",
+      "preferences": {},
+      "availability": {},
+      "evidence": [],
+      "question": null,
+      "stopping_condition": null,
+      "completion": null,
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z",
+      "last_activity_at": null,
+      "archived": false
+    },
+    {
+      "id": "mis_idea",
+      "category_id": "cat_inbox",
+      "title": "Explore a useful home service",
+      "status": "idea",
+      "kind": "mission",
+      "purpose": "",
+      "current_state": "",
+      "next_action": "",
+      "resume": {
+        "last_result": "",
+        "known_working": "",
+        "failed_attempts": [],
+        "decisions": []
+      },
+      "completion_criteria": [],
+      "blockers": [],
+      "notes_markdown": "",
+      "document_ids": [],
+      "resources": [],
+      "related_mission_ids": [],
+      "dependency_ids": [],
+      "tags": [],
+      "instructions": "",
+      "preferences": {},
+      "availability": {},
+      "evidence": [],
+      "question": null,
+      "stopping_condition": null,
+      "completion": null,
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z",
+      "last_activity_at": null,
+      "archived": false
+    },
+    {
+      "id": "mis_review",
+      "category_id": "cat_backups",
+      "title": "Review backup results",
+      "status": "maintenance",
+      "kind": "maintenance",
+      "purpose": "",
+      "current_state": "",
+      "next_action": "Review the latest sample backup report.",
+      "resume": {
+        "last_result": "",
+        "known_working": "",
+        "failed_attempts": [],
+        "decisions": []
+      },
+      "completion_criteria": [],
+      "blockers": [],
+      "notes_markdown": "",
+      "document_ids": [],
+      "resources": [
+        {
+          "label": "Example documentation placeholder",
+          "type": "document",
+          "locator": "https://example.com/backup-guide",
+          "checked": false
+        }
+      ],
+      "related_mission_ids": [],
+      "dependency_ids": [],
+      "tags": [],
+      "instructions": "",
+      "preferences": {},
+      "availability": {},
+      "evidence": [],
+      "question": null,
+      "stopping_condition": null,
+      "completion": null,
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z",
+      "last_activity_at": null,
+      "archived": false
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc_restore",
+      "mission_id": "mis_restore",
+      "title": "Sample restore procedure \u2014 fictional draft",
+      "type": "procedure",
+      "markdown": "# Sample restore procedure\n\n## Purpose\nDemonstrate restoring disposable example data.\n\n## Preconditions\nAn example backup and empty temporary destination are required.\n\n## Planned procedure\n1. Select the sample backup.\n2. Restore to the temporary destination.\n3. Compare content with the original.\n\n## Verification\nNot performed. Record actual evidence after the exercise.\n\n## Recovery\nPreserve original data. Remove only disposable restored files after verification.\n\nThis is a brief fixture representing a linked document, not a claim that deep documentation or a real restore is complete.",
+      "provenance": {
+        "source_type": "user_reported",
+        "source_ref": "Fictional fixture only",
+        "observed_at": null,
+        "freshness": "unknown"
+      }
+    }
+  ],
+  "sessions": []
+}

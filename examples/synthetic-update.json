@@ -1,0 +1,60 @@
+{
+  "protocol_version": "0.2",
+  "workspace_id": "ws_example",
+  "context_id": "ctx_example",
+  "base_revision": 0,
+  "update_id": "upd_example",
+  "summary": "Record the fictional preparation step and its next action.",
+  "operations": [
+    {
+      "op": "update_mission",
+      "mission_id": "mis_restore",
+      "changes": {
+        "next_action": "Restore the sample backup to the selected temporary destination."
+      },
+      "reason": "Preparation has a reported result.",
+      "provenance": {
+        "source_type": "user_reported",
+        "source_ref": "Fictional fixture only",
+        "observed_at": null,
+        "freshness": "unknown"
+      }
+    },
+    {
+      "op": "append_note",
+      "mission_id": "mis_restore",
+      "markdown": "- The user reports choosing an empty temporary destination. Restoration has not been tested.",
+      "reason": "Preserve a reported preparation result.",
+      "provenance": {
+        "source_type": "user_reported",
+        "source_ref": "Fictional fixture only",
+        "observed_at": null,
+        "freshness": "unknown"
+      }
+    },
+    {
+      "op": "record_session",
+      "session": {
+        "id": "ses_preparation",
+        "mission_id": "mis_restore",
+        "occurred_at": null,
+        "summary": "Prepared the sample restore destination.",
+        "result": "User-reported preparation only; restore not performed.",
+        "next_action": "Restore the sample backup to the selected temporary destination.",
+        "provenance": {
+          "source_type": "user_reported",
+          "source_ref": "Fictional fixture only",
+          "observed_at": null,
+          "freshness": "unknown"
+        }
+      },
+      "reason": "Keep a compact work-session result.",
+      "provenance": {
+        "source_type": "user_reported",
+        "source_ref": "Fictional fixture only",
+        "observed_at": null,
+        "freshness": "unknown"
+      }
+    }
+  ]
+}

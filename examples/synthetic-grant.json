@@ -1,0 +1,16 @@
+{
+  "context_id": "ctx_example",
+  "workspace_id": "ws_example",
+  "base_revision": 0,
+  "mission_ids": [
+    "mis_restore"
+  ],
+  "category_ids": [],
+  "operations": [
+    "update_mission",
+    "append_note",
+    "put_document",
+    "record_session"
+  ],
+  "allow_root_categories": false
+}

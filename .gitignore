@@ -1,0 +1,17 @@
+# User data belongs outside this source checkout. These are additional safeguards.
+/user-data/
+/private-workspaces/
+/exports/
+*.private.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+target/
+.DS_Store

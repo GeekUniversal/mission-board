@@ -1,0 +1,756 @@
+{
+  "type": "object",
+  "properties": {
+    "format_version": {
+      "const": "0.2"
+    },
+    "workspace_id": {
+      "$ref": "#/$defs/workspaceId"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "inbox_category_id": {
+      "$ref": "#/$defs/categoryId"
+    },
+    "instructions": {
+      "type": "string",
+      "maxLength": 1000000
+    },
+    "preferences": {
+      "$ref": "#/$defs/preferences"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/category"
+      },
+      "minItems": 1
+    },
+    "missions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mission"
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/document"
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/session"
+      }
+    }
+  },
+  "required": [
+    "format_version",
+    "workspace_id",
+    "revision",
+    "name",
+    "inbox_category_id",
+    "instructions",
+    "preferences",
+    "categories",
+    "missions",
+    "documents",
+    "sessions"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "workspaceId": {
+      "type": "string",
+      "pattern": "^ws_[A-Za-z0-9_-]{1,80}$"
+    },
+    "categoryId": {
+      "type": "string",
+      "pattern": "^cat_[A-Za-z0-9_-]{1,80}$"
+    },
+    "missionId": {
+      "type": "string",
+      "pattern": "^mis_[A-Za-z0-9_-]{1,80}$"
+    },
+    "documentId": {
+      "type": "string",
+      "pattern": "^doc_[A-Za-z0-9_-]{1,80}$"
+    },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^ses_[A-Za-z0-9_-]{1,80}$"
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "conversation": {
+          "enum": [
+            "minimal",
+            "concise",
+            "standard",
+            "detailed",
+            "deep"
+          ]
+        },
+        "explanation": {
+          "enum": [
+            "minimal",
+            "concise",
+            "standard",
+            "detailed",
+            "deep"
+          ]
+        },
+        "progress": {
+          "enum": [
+            "minimal",
+            "concise",
+            "standard",
+            "detailed",
+            "deep"
+          ]
+        },
+        "step_size": {
+          "enum": [
+            "one_action",
+            "small_batch",
+            "full_workflow"
+          ]
+        },
+        "notes_depth": {
+          "enum": [
+            "bullets",
+            "summary",
+            "standard",
+            "deep",
+            "exhaustive"
+          ]
+        },
+        "notes_placement": {
+          "enum": [
+            "inline",
+            "document",
+            "external",
+            "auto"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "source_type": {
+          "enum": [
+            "user_reported",
+            "observed_result",
+            "repository_evidence",
+            "assistant_inference",
+            "integration_event"
+          ]
+        },
+        "source_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 2000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "freshness": {
+          "enum": [
+            "current",
+            "historical",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "source_type",
+        "source_ref",
+        "observed_at",
+        "freshness"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "required": [
+        "claim",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/categoryId"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/categoryId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "instructions": {
+          "type": "string",
+          "maxLength": 1000000
+        },
+        "preferences": {
+          "$ref": "#/$defs/preferences"
+        },
+        "archived": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "parent_id",
+        "name",
+        "instructions",
+        "preferences",
+        "archived"
+      ],
+      "additionalProperties": false
+    },
+    "blocker": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "kind": {
+          "enum": [
+            "dependency",
+            "delivery",
+            "money",
+            "hardware",
+            "access",
+            "person",
+            "upstream",
+            "decision",
+            "time",
+            "other"
+          ]
+        },
+        "resolved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "reason",
+        "kind",
+        "resolved"
+      ],
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "type": {
+          "enum": [
+            "document",
+            "file",
+            "repository",
+            "issue",
+            "commit",
+            "url"
+          ]
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "checked": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "label",
+        "type",
+        "locator",
+        "checked"
+      ],
+      "additionalProperties": false
+    },
+    "availability": {
+      "type": "object",
+      "properties": {
+        "estimated_minutes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "energy": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "internet": {
+          "enum": [
+            "required",
+            "not_required",
+            "unknown"
+          ]
+        },
+        "purchase": {
+          "enum": [
+            "required",
+            "not_required",
+            "unknown"
+          ]
+        },
+        "required_devices": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "physical_access": {
+          "enum": [
+            "required",
+            "not_required",
+            "unknown"
+          ]
+        },
+        "downtime": {
+          "enum": [
+            "required",
+            "not_required",
+            "unknown"
+          ]
+        },
+        "remote_capable": {
+          "enum": [
+            "yes",
+            "no",
+            "unknown"
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "completion": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "time_known": {
+          "type": "boolean"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "required": [
+        "summary",
+        "occurred_at",
+        "time_known",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "mission": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/missionId"
+        },
+        "category_id": {
+          "$ref": "#/$defs/categoryId"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "status": {
+          "enum": [
+            "idea",
+            "ready",
+            "active",
+            "waiting",
+            "experiment",
+            "maintenance",
+            "completed"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "mission",
+            "experiment",
+            "maintenance"
+          ]
+        },
+        "purpose": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "current_state": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "next_action": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "resume": {
+          "type": "object",
+          "properties": {
+            "last_result": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "known_working": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "failed_attempts": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 2000
+              }
+            },
+            "decisions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 2000
+              }
+            }
+          },
+          "required": [
+            "last_result",
+            "known_working",
+            "failed_attempts",
+            "decisions"
+          ],
+          "additionalProperties": false
+        },
+        "completion_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/blocker"
+          }
+        },
+        "notes_markdown": {
+          "type": "string",
+          "maxLength": 1000000
+        },
+        "document_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/documentId"
+          },
+          "uniqueItems": true
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resource"
+          }
+        },
+        "related_mission_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/missionId"
+          },
+          "uniqueItems": true
+        },
+        "dependency_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/missionId"
+          },
+          "uniqueItems": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "uniqueItems": true
+        },
+        "instructions": {
+          "type": "string",
+          "maxLength": 1000000
+        },
+        "preferences": {
+          "$ref": "#/$defs/preferences"
+        },
+        "availability": {
+          "$ref": "#/$defs/availability"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "question": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 2000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stopping_condition": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 2000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completion": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/completion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_activity_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "archived": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "category_id",
+        "title",
+        "status",
+        "kind",
+        "purpose",
+        "current_state",
+        "next_action",
+        "resume",
+        "completion_criteria",
+        "blockers",
+        "notes_markdown",
+        "document_ids",
+        "resources",
+        "related_mission_ids",
+        "dependency_ids",
+        "tags",
+        "instructions",
+        "preferences",
+        "availability",
+        "evidence",
+        "question",
+        "stopping_condition",
+        "completion",
+        "created_at",
+        "updated_at",
+        "last_activity_at",
+        "archived"
+      ],
+      "additionalProperties": false
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/documentId"
+        },
+        "mission_id": {
+          "$ref": "#/$defs/missionId"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "type": {
+          "enum": [
+            "note",
+            "procedure",
+            "troubleshooting",
+            "reference",
+            "decision"
+          ]
+        },
+        "markdown": {
+          "type": "string",
+          "maxLength": 1000000
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "required": [
+        "id",
+        "mission_id",
+        "title",
+        "type",
+        "markdown",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "session": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/sessionId"
+        },
+        "mission_id": {
+          "$ref": "#/$defs/missionId"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "result": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "next_action": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      },
+      "required": [
+        "id",
+        "mission_id",
+        "occurred_at",
+        "summary",
+        "result",
+        "next_action",
+        "provenance"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "title": "Mission Board portable snapshot 0.2"
+}
