@@ -2,7 +2,7 @@
 
 A local-first project memory and navigation tool designed for people who juggle projects, experiments, learning and ideas. Organize missions in categories and subcategories, resume after interruptions, and let your chosen chatbot help maintain the record while you work.
 
-**Current stage: design foundation 0.2. There is no installable end-user application yet.** This repository contains specifications, fictional examples and a tested specification harness. The next implementation milestone is the domain command and preview layer.
+**Current stage: B01 portable core. There is no installable end-user application yet.** This repository now contains a tested, in-memory TypeScript command and preview engine beneath the specifications and fictional examples. The next implementation milestone is the scoped context builder and effective-instruction export.
 
 ## Start here
 
@@ -51,6 +51,22 @@ This public repository is the reusable software project. **It is not a storage l
 | `examples/synthetic-update.json` | Fictional scoped mission/session update |
 | `examples/synthetic-grant.json` | Example locally stored permission scope; not an AI permission request |
 | `tools/validate_spec.py` | In-memory contract tests; no persistence or real user-data writes |
+| `src/` | Production TypeScript types, validators, preference resolution, factories and update preview engine |
+| `test/core.test.ts` | Production contract and adversarial tests for B01 |
+
+## Run the TypeScript core checks
+
+Install the locked dependencies, regenerate schema-derived types, typecheck and run the production tests:
+
+```bash
+npm ci
+```
+
+```bash
+npm run check
+```
+
+The generated declarations under `src/generated/` come from the portable JSON schemas. Runtime validation uses the same schemas in strict Ajv 2020-12 mode, followed by semantic validation for references, cycles, lifecycle rules, resource safety and document ownership.
 
 ## Run the specification checks
 
@@ -72,7 +88,9 @@ On Windows use `.venv\Scripts\python.exe` in place of `.venv/bin/python`. These 
 
 ## Implementation status and limits
 
-The schemas and harness are draft contract artifacts. No UI, production importer, durable save engine, context exporter, connected AI adapter, Git synchronization, installer or background worker has been implemented. Validate semantics in addition to JSON structure. See the backlog for persistence, idempotency, crash recovery and permission enforcement requirements.
+B01 implements pure in-memory validation and candidate-update preview. It can create scoped categories and missions, make targeted mission changes, append notes, put internal Markdown documents, record work sessions, resolve independent inherited preferences, describe proposed changes and reject an invalid transaction without mutating its inputs. It increments the candidate revision once after a fully accepted update.
+
+There is still no UI, durable save engine, context exporter, durable grant/receipt store, connected AI adapter, Git synchronization, installer or background worker. Persistence, crash recovery, idempotent receipts, cross-process concurrency and actual chatbot connections have not been tested. See the backlog for the bounded next milestones.
 
 ## License
 

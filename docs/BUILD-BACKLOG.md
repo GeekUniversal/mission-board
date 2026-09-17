@@ -1,6 +1,6 @@
 # Mission Board build backlog and checkpoint
 
-Checkpoint: 2026-09-17. Design 0.2. **Specification and validation tooling exist; end-user software does not.**
+Checkpoint: 2026-09-17. Design/protocol 0.2. **B01's in-memory TypeScript core is implemented and tested; end-user software does not yet exist.**
 
 ## Completed in this foundation batch
 
@@ -13,7 +13,7 @@ Checkpoint: 2026-09-17. Design 0.2. **Specification and validation tooling exist
 
 Actual validation results belong in `VALIDATION.md`. A checkbox above describes foundation files, not a production implementation of their requirements.
 
-## First development session — B01
+## First development session — B01 (complete)
 
 **Goal:** implement the production in-memory command layer with no filesystem writes.
 
@@ -23,11 +23,13 @@ Deliver: TypeScript types generated from or checked against the schema, strict v
 
 Acceptance: create a mission under a granted category; update only next action without erasing notes; resolve category and mission preferences independently; reject a stale update, foreign workspace, forbidden operation, cycle or dangling reference; input objects remain unchanged even on failure. Include document ownership checks. Import UI and storage are deliberately later.
 
+**Result:** implemented in `src/` with schema-derived TypeScript declarations, strict Ajv structural checks, semantic board/grant validation, independent preference resolution, injected identity/time services, and an atomic `previewUpdate` candidate plus human-readable descriptions. `test/core.test.ts` contains 23 production contract tests; the original 32-test Python specification harness remains green. Detailed commands and limits are recorded in `VALIDATION.md`.
+
 ## Ordered engineering work
 
 | ID | Task | Depends on | Completion evidence |
 |---|---|---|---|
-| B01 | Production pure command engine and strict schemas | Foundation | Golden plus adversarial contract cases pass; schema and runtime rules agree. |
+| B01 | Production pure command engine and strict schemas | Foundation | **Complete:** 23 TypeScript tests plus 32 Python specification tests pass; generated types, runtime schema checks and semantic rules agree. |
 | B02 | Scoped context builder and effective instructions | B01 | Selected mission exports only requested content, ancestry and approved supporting records; omitted linked documents remain omitted. |
 | B03 | File persistence, history and receipts | B01 | Atomic/recovery behavior under injected failures; replay same update is harmless; mismatched repeated ID fails; locking/source-fingerprint conflict test. |
 | B04 | Manual capture, categories and Resume UI | B01/B03 | Title-only entry expands defaults; keyboard user can create/move/find/reopen mission; save/restart preserves it. |
@@ -73,3 +75,7 @@ Keep this concise; deeper explanation belongs in the corresponding technical doc
 ## Pending owner decisions
 
 License before distributable release; supported first-release operating systems; eventual business model; first connected adapter based on tested availability. None is a reason to restart the schema or delay B01.
+
+## Exact next action
+
+Begin **B02** by defining and testing a pure scoped context builder that exports only the selected mission/category scope, required ancestry, effective preference values with origins, effective user instructions, and explicitly approved supporting records. Omitted linked documents must remain omitted. Do not begin persistence or UI as part of that task.

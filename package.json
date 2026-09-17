@@ -1,0 +1,22 @@
+{
+  "name": "mission-board",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:types": "json2ts -i schemas/board.schema.json -o src/generated/board.d.ts --bannerComment '/* Generated from schemas/board.schema.json. Do not edit directly. */' && json2ts -i schemas/update.schema.json -o src/generated/update.d.ts --bannerComment '/* Generated from schemas/update.schema.json. Do not edit directly. */'",
+    "check": "npm run generate:types && git diff --exit-code -- src/generated && npm run typecheck && npm test",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.5.2",
+    "json-schema-to-typescript": "15.0.4",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}

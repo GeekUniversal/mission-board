@@ -8,10 +8,12 @@
 !.env.example
 *.pem
 *.key
+node_modules/
 .venv/
 __pycache__/
 *.pyc
-node_modules/
+coverage/
 dist/
 target/
+*.tsbuildinfo
 .DS_Store
